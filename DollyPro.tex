@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{fontspec}
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "rlig",
+    type = "ligature",
+    data = {
+      ['f_f_i'] = { "f", "f", "i" },
+      ['f_f_j'] = { "f", "f", "j" },
+      ['f_f_l'] = { "f", "f", "l" },
+      ['f_b'] = { "f", "b" },
+      ['f_f'] = { "f", "f" },
+      ['f_h'] = { "f", "h" },
+      ['f_i'] = { "f", "i" },
+      ['f_j'] = { "f", "j" },
+      ['f_k'] = { "f", "k" },
+      ['f_l'] = { "f", "l" },
+      ['f_t'] = { "f", "t" },
+      ['k_k'] = { "k", "k" },
+      ['l_l'] = { "l", "l" },
+      ['t_t'] = { "t", "t" },
+      ['z_z'] = { "z", "z" },
+      ['Q_u'] = { "Q", "u" },
+      ['T_h'] = { "T", "h" },
+    },
+  }
+}
+\setmainfont{dollyproregular}[
+  UprightFeatures={Contextuals=Alternate},
+  ItalicFont={*italic},
+  ItalicFeatures={Contextuals=Alternate},
+  SmallCapsFont={*smallcaps},
+  Ligatures=NoCommon]
+\begin{document}
+Dolly Pro’s ligatures work perfectly in xetex, but in luatex, the
+‘ffi,’ ‘ffl,’ ‘ft,’ ‘tt,’ and ‘ll’ ligatures sometimes work and
+sometimes break, even within a single file.
+
+I’ve been able to fix this only by turning off ‘liga’ and restoring
+the ligatures as ‘rlig,’ paying close attention to the order in which
+ligatures are defined.
+
+Localization adds complexities I haven’t figured out, as explained in
+the comments.
+
+% If writing Catalan, add these lines to rlig:
+%       ['ldot'] = { "l", "periodcentered" },
+%       ['Ldot'] = { "L", "periodcentered" },
+
+
+% If writing Dutch, add these lines to rlig (the first two at the top):
+%       ['f_f_ij'] = { "f", "f", "i", "j" },
+%       ['f_ij'] = { "f", "i", "j" },
+%       ['ij'] = { "i", "j" },
+%       ['IJ'] = { "I", "J" },
+%
+% But this will give you Dutch ligatures where they’re not
+% appropriate, as in FIJI and BIJOU.  Dolly’s original features remove
+% them, but I don’t know how to do a localized, contextual removal of
+% ligatures with \directlua{...}.
+\end{document}
