@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+\usepackage{fontspec,realscripts}
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "sups",
+    type = "substitution",
+    data = {
+      ["one.oldstyle"] = "¹",
+      ["two.oldstyle"] = "²",
+      ["three.oldstyle"] = "³",
+      ["four.oldstyle"] = "⁴",
+      ["five.oldstyle"] = "⁵",
+      ["six.oldstyle"] = "⁶",
+      ["seven.oldstyle"] = "⁷",
+      ["eight.oldstyle"] = "⁸",
+      ["nine.oldstyle"] = "⁹",
+      ["zero.oldstyle"] = "⁰",
+      ["one.taboldstyle"] = "¹",
+      ["two.taboldstyle"] = "²",
+      ["three.taboldstyle"] = "³",
+      ["four.taboldstyle"] = "⁴",
+      ["five.taboldstyle"] = "⁵",
+      ["six.taboldstyle"] = "⁶",
+      ["seven.taboldstyle"] = "⁷",
+      ["eight.taboldstyle"] = "⁸",
+      ["nine.taboldstyle"] = "⁹",
+      ["zero.taboldstyle"] = "⁰",
+      ["one.fitted"] = "¹",
+      ["two.fitted"] = "²",
+      ["three.fitted"] = "³",
+      ["four.fitted"] = "⁴",
+      ["five.fitted"] = "⁵",
+      ["six.fitted"] = "⁶",
+      ["seven.fitted"] = "⁷",
+      ["eight.fitted"] = "⁸",
+      ["nine.fitted"] = "⁹",
+      ["zero.fitted"] = "⁰",
+      ["zero.slashfitted"] = "⁰",
+      ["zero.slash"] = "⁰",
+      ["dollar.taboldstyle"] = "dollar.superior",
+      ["Euro.taboldstyle"] = "Euro.superior",
+      ["cent.taboldstyle"] = "cent.superior",
+      ["sterling.taboldstyle"] = "sterling.superior",
+      ["florin.taboldstyle"] = "florin.superior",
+      ["yen.taboldstyle"] = "yen.superior",
+    },
+  }
+}
+\setmainfont{Agmena Pro Regular}[
+  ItalicFont={Agmena Pro Italic},
+  Numbers=OldStyle]
+\begin{document}
+When using lowercase figures or proportional lining figures without
+the fix above, ‘realscripts’ fails, because Agmena defines ‘sups’ to
+replace only its default figures.
+
+Likewise, ‘subs,’ ‘sinf,’ ‘numr,’ and ‘dnom’ work only for the default
+figures. I haven’t yet tried repairing them, but it’s probably easier
+simply to turn off ‘onum’ when turning on, say, ‘frac’:
+{\addfontfeatures{RawFeature=-onum;+frac}9/7}.
+\end{document}
