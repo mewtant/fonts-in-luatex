@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{fontspec}
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "inum",
+    type = "substitution",
+    data = {
+      one = "one.onum",
+      two = "two.onum",
+      three = "three.onum",
+      four = "four.onum",
+      five = "five.onum",
+      six = "six.onum",
+      seven = "seven.onum",
+      eight = "eight.onum",
+      nine = "nine.onum",
+      zero = "zero.onum",
+    },
+  }
+}
+\setmainfont{Didot LT Pro}[
+  UprightFeatures={Numbers=OldStyle},
+  ItalicFeatures={RawFeature=+inum}]
+\begin{document}
+Didot LT Pro has lowercase figures in both its roman and its italic;
+however, the ‘onum’ feature is defined only for the roman.
+
+When I fixed the problem with a feature file in older versions of
+luatex and fontspec, the numbers did not copy and paste correctly;
+now, with this new approach, they do.
+\end{document}
