@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{fontspec}
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "punc",
+    type = "substitution",
+    data = {
+      ["ampersand.sc"] = "ampersand",
+      ["parenleft.sc"] = "parenleft",
+      ["parenright.sc"] = "parenright",
+      ["bracketleft.sc"] = "bracketleft",
+      ["bracketright.sc"] = "bracketright",
+      ["braceleft.sc"] = "braceleft",
+      ["braceright.sc"] = "braceright",
+      ["paragraph.sc"] = "paragraph",
+    },
+  }
+  fonts.handlers.otf.addfeature{
+    name = "smcp",
+    type = "substitution",
+    data = {
+      ["one.osf"] = "one.sc",
+      ["two.osf"] = "two.sc",
+      ["three.osf"] = "three.sc",
+      ["four.osf"] = "four.sc",
+      ["five.osf"] = "five.sc",
+      ["six.osf"] = "six.sc",
+      ["seven.osf"] = "seven.sc",
+      ["eight.osf"] = "eight.sc",
+      ["nine.osf"] = "nine.sc",
+      ["zero.osf"] = "zero.sc",
+    },
+  }
+}
+\setmainfont{Mauritius}[
+  RawFeature={+punc},
+  Numbers=OldStyle,
+  Style=Alternate,
+  SmallCapsFeatures={RawFeature=-punc;-salt}]
+\begin{document}
+In Mauritius (Georg Trump and Canada Type), the small cap ampersand,
+braces, brackets, and parentheses are defined as parts of the ‘onum’
+feature. This makes sense for those selecting ‘onum’ here and there in
+a GUI, but not for those making it the default in a ‘.tex’ document.
+
+The ‘smcp’ feature neglects to account for stylistic alternates in the
+lowercase; one could add them through ‘directlua,’ but it’s quickest
+and equally effective to turn off ‘salt’ in the small caps.
+
+There are small cap figures; here I add to ‘smcp’ so that they replace
+even lowercase figures.
+\end{document}
