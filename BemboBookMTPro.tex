@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{fontspec,realscripts}
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "sups",
+    type = "substitution",
+    data = {
+      four = "four.numerator",
+      five = "five.numerator",
+      six = "six.numerator",
+      seven = "seven.numerator",
+      eight = "eight.numerator",
+      nine = "nine.numerator",
+      zero = "zero.numerator",
+    },
+  }
+  fonts.handlers.otf.addfeature{
+    name = "bigq",
+    type = "alternate",
+    data = {
+      Q = "Q.001",
+    },
+  }
+  fonts.handlers.otf.addfeature{
+    name = "medq",
+    type = "alternate",
+    data = {
+      Q = "Q.002",
+    },
+  }
+}
+\setmainfont{Bembo Book MT Pro}[
+  Numbers={OldStyle,Proportional},
+  Style=Alternate]
+\renewcommand\footnotemarkfont{\addfontfeature{RawFeature=-onum;-pnum}}
+\usepackage[hidelinks]{hyperref}
+\begin{document}
+Bembo Book MT Pro has only three superior figures , and its ‘sups’
+feature defines them to replace only the default figures. As long as
+you need only footnotes numbered no higher than three, the
+‘realscripts’ package will work if you turn off ‘onum’ and ‘pnum’ for
+footnote marks, as above. Unfortunately, the fuller sets of superiors
+in Cardo and Poliphilus MT Pro are not suitable for use with Bembo
+Book. But since numerators are visually indistinguishable from
+superiors in this font, ‘directlua’ can press them into service when
+you need both Bembo Book and notes numbered beyond three.
+
+‘salt’ shortens the leg of R\@. As Paul Shaw points
+out,\footnote{\href{http://www.paulshawletterdesign.com/2011/05/flawed-typefaces/}{www.paulshawletterdesign.com/2011/05/flawed-typefaces/}}
+the default R should be an alternate used only in titling. So turn on
+‘salt’ for the document as a whole, and turn it off in titling, drop
+caps, etc.
+
+The default Q has a short tail;
+{\addfontfeatures{RawFeature=+bigq}Q.001} has a very long tail; and
+{\addfontfeatures{RawFeature=+medq}Q.002} has a longish tail. The
+‘calt’ feature controls the tail of Q, but unintelligently (see, for
+instance, this spectacular collision:
+{\addfontfeatures{Contextuals=Alternate}QJ).}  Re-writing ‘calt’
+(under a different name, so that the new version needn’t fight the
+old) would be more trouble than it’s worth; better to leave ‘calt’
+off, to decide which Q to use by default depending on the language and
+the purpose of a document, and to add features like those above,
+allowing for easy use of another Q when the context demands.
+\end{document}
