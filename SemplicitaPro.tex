@@ -1,0 +1,30 @@
+\documentclass{beamer}
+\usepackage{fontspec,realscripts}
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "punc",
+    type = "substitution",
+    data = {
+      ["ampersand.sc"] = "ampersand",
+      ["ampersand.alt.sc"] = "ampersand.alt",
+    },
+  }
+}
+\setsansfont{semplicitapro}[
+  Numbers=OldStyle,
+  RawFeature={+punc},
+  SmallCapsFeatures={RawFeature=-punc}]
+\renewcommand\footnotemarkfont{\addfontfeature{RawFeature=-onum}}
+\begin{document}
+\begin{frame}
+  \frametitle{Semplicita Pro}
+
+  In Semplicita Pro (Alessandro Butti \& Canada Type), the small cap
+  ampersand is defined as part of the ‘onum’ feature. This may make
+  sense for those selecting ‘onum’ here and there in a GUI, but not
+  for those making it the default in a ‘.tex’ document.
+
+  The font defines ‘sups’ to replace only its default figures, so I
+  turn off ‘onum’ for footnote marks.
+\end{frame}
+\end{document}
