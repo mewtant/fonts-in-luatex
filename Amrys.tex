@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{fontspec}
+\directlua{
+  fonts.handlers.otf.addfeature{
+    name = "nolg",
+    type = "multiple",
+    data = {
+      ['c_h'] = { "c", "h" },
+      ['c_t'] = { "c", "t" },
+      ['s_p'] = { "s", "p" },
+      ['s_t'] = { "s", "t" },
+      ['f_i'] = { "f", "i" },
+      ['f_l'] = { "f", "l" },
+    },
+  }
+  fonts.handlers.otf.addfeature{
+    name = "rlig",
+    type = "ligature",
+    data = {
+      ['f_f_i'] = { "f", "f", "i" },
+      ['f_f_l'] = { "f", "f", "l" },
+      ['f_i'] = { "f", "i" },
+      ['f_l'] = { "f", "l" },
+    },
+  }
+}
+\setmainfont{Amrys}[
+  Contextuals=Alternate,
+  Ligatures=Rare,
+  Numbers=OldStyle,
+  RawFeature=+nolg]
+\begin{document}
+Amrys has ‘ffi’ and ‘ffl’ ligatures which don’t appear unless one
+turns on discretionary ligatures (this suffices for the italic) or
+breaks the standard ‘fi’ and ‘fl’ ligatures, restores them as required
+ligatures, and turns on discretionary ligatures (this fixes both
+italic and roman).
+
+I’ve also broken the ‘ch’, ‘ct’, ‘sp’, and ‘st’ ligatures, since they
+aren’t appropriate in every document where ‘ffi’ and ‘ffl’ ligatures
+are welcome.
+\end{document}
